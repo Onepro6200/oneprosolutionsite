@@ -652,3 +652,19 @@ section { position: relative; }
   .cards, .petro-cards, .cat-head { grid-template-columns: 1fr; }
   .petro-video { min-height: 300px; }
 }
+
+/* Product media on division pages */
+.product-media { margin: 0 0 1.6rem; aspect-ratio: 16 / 10; overflow: hidden; border-radius: var(--radius); background: var(--paper-2); }
+.product-media img, .product-media video { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 1.2s var(--ease); }
+.product:hover .product-media img { transform: scale(1.03); }
+.gallery--alt { grid-template-columns: 1fr 2fr; }
+.gallery--alt .fig:first-child { grid-column: 2; grid-row: 1 / span 2; }
+.gallery-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+.gallery-strip .fig { overflow: hidden; border-radius: var(--radius); aspect-ratio: 4 / 3; }
+.gallery-strip .fig img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.4s var(--ease); }
+.gallery-strip .fig:hover img { transform: scale(1.04); }
+@media (max-width: 900px) {
+  .gallery--alt { grid-template-columns: 1fr; }
+  .gallery--alt .fig:first-child { grid-column: auto; grid-row: auto; }
+  .gallery-strip { grid-template-columns: repeat(2, 1fr); }
+}
