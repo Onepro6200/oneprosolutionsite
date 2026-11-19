@@ -92,7 +92,6 @@
   });
 
   /* Year */
-  document.querySelectorAll("[data-year]").forEach(function (y) { y.textContent = new Date().getFullYear(); });
 
   /* Preselect division via ?division= */
   var form = document.querySelector("form[name='contact']");
