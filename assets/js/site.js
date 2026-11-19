@@ -103,6 +103,31 @@
       if (sel) Array.prototype.forEach.call(sel.options, function (o) { if (o.getAttribute("data-key") === div) sel.value = o.value; });
     }
 
+    /* Prefill selected product via ?product= (and ?type=specs for spec-sheet requests) */
+    var product = (params.get("product") || "").trim().slice(0, 120);
+    var isSpecs = params.get("type") === "specs";
+    if (product) {
+      var pf = form.querySelector("input[name='product']");
+      if (pf) pf.value = product;
+      var typeField = form.querySelector("input[name='inquiry-type']");
+      if (typeField) typeField.value = isSpecs ? "Technical specification request" : "Quote request";
+      var subj = form.querySelector("input[name='subject']");
+      if (subj) subj.value = (isSpecs ? "Spec sheet request: " : "Quote request: ") + product;
+      var msg = form.querySelector("textarea[name='message']");
+      if (msg && !msg.value) {
+        msg.value = isSpecs
+          ? "Please send the full technical specification sheet and certificate of quality for " + product + ".\n\nTarget quantity: \nDestination port: "
+          : "I would like to request a quote for " + product + ".\n\nTarget quantity: \nDelivery schedule: \nPayment instrument: ";
+      }
+      var note = document.querySelector(".prefill-note");
+      if (note) {
+        note.textContent = "";
+        note.appendChild(document.createTextNode(isSpecs ? "Requesting technical specifications for " : "Requesting a quote for "));
+        var b = document.createElement("b"); b.textContent = product; note.appendChild(b);
+        note.classList.add("show");
+      }
+    }
+
     var validate = function (field) {
       var wrap = field.closest(".field");
       if (!wrap) return true;
